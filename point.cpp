@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "point.h"
+#include "declarations.h"
 
 using namespace std;
 

@@ -3,11 +3,11 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "declarations.h"
 
 using namespace std;
 
-typedef vector<string> row;
-typedef vector<row> csv_result;
+
 
 csv_result read_csv(string);
 
