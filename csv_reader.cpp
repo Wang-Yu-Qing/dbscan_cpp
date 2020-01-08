@@ -23,5 +23,6 @@ csv_result read_csv(string file_path)
         }
         values.push_back(line_values);
     }
+    file_stream.close();
     return values;
 }

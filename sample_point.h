@@ -11,7 +11,7 @@ class Sample_point
 
 public:
     vector<double> vec;
-    vector<Sample_point> neighbours;
+    vector<int> neighbours;
     string type;
     bool visited;
     int cluster;

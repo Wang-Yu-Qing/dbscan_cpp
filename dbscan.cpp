@@ -16,7 +16,8 @@ DBSCAN::DBSCAN(vector<Sample_point> input_data, double radius, int minimum_point
 
 DBSCAN::~DBSCAN() {}
 
-double DBSCAN::compute_distance(Sample_point p1, Sample_point p2)
+// 频繁调用该函数，因此设为内联函数
+inline double DBSCAN::compute_distance(Sample_point &p1, Sample_point &p2)
 {
     double distance = 0;
     int dim = p1.dimensions();
@@ -29,6 +30,7 @@ double DBSCAN::compute_distance(Sample_point p1, Sample_point p2)
 
 void DBSCAN::find_neighbours(Sample_point &p)
 {
+    int index = 0;
     // 使用引用查看是否另一个点就是自己
     for (Sample_point &another_p : this->input_data)
     {
@@ -37,26 +39,24 @@ void DBSCAN::find_neighbours(Sample_point &p)
             // cout << distance << endl;
             if (this->compute_distance(p, another_p) <= this->radius)
             {
-                p.neighbours.push_back(another_p);
+                p.neighbours.push_back(index);
             }
         }
         else
         {
-            cout << "found itself" << endl;
+            // cout << "found itself" << endl;
         }
+        index += 1;
     }
 }
 
 vector<int> DBSCAN::run()
 {
     cout << "Start find neighbours for each sample point.." << endl;
-    int i = 0;
     // 这里也要使用引用传递
     for (Sample_point &p : this->input_data)
     {
         this->find_neighbours(p);
-        i += 1;
-        cout << i << endl;
     }
     return vector<int>{1};
 }
