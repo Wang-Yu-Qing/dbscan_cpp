@@ -1,21 +1,22 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "declarations.h"
+#include "common.h"
+#include "sample_point.h"
 
 using namespace std;
 
 // 构造函数定义
-Point::Point(vector<double> vector)
+Sample_point::Sample_point(vector<double> vector)
 {
     this->vec = vector;
     this->visited = false;
     this->cluster = -1;
 }
 
-Point::~Point(){}
+Sample_point::~Sample_point(){}
 
-void Point::show_vector() {
+void Sample_point::show_vector() {
     cout << "{";
     for (double value:this->vec){
         cout << value << ",";
@@ -23,9 +24,6 @@ void Point::show_vector() {
     cout << "}" << endl;
 }
 
-int main()
-{
-    Point p(vector<double>{1, 2});
-    p.show_vector();
-    return 1;
+int Sample_point::dimensions() {
+    return (this->vec).size();
 }

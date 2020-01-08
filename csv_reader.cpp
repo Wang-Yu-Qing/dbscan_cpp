@@ -3,13 +3,9 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include "declarations.h"
+#include "common.h"
 
 using namespace std;
-
-
-
-csv_result read_csv(string);
 
 csv_result read_csv(string file_path)
 {
@@ -28,18 +24,4 @@ csv_result read_csv(string file_path)
         values.push_back(line_values);
     }
     return values;
-}
-
-int main()
-{
-    csv_result result = read_csv("data/gaode_merge.csv");
-    for (row row_values : result)
-    {
-        for (string value : row_values)
-        {
-            cout << value << ",";
-        }
-        cout << endl << "====" << endl;
-    }
-    return 0;
 }
