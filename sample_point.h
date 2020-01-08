@@ -12,6 +12,7 @@ class Sample_point
 public:
     vector<double> vec;
     vector<int> neighbours;
+    vector<Sample_point*> neighbours_pt;
     string type;
     bool visited;
     int cluster;

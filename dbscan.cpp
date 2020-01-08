@@ -39,7 +39,8 @@ void DBSCAN::find_neighbours(Sample_point &p)
             // cout << distance << endl;
             if (this->compute_distance(p, another_p) <= this->radius)
             {
-                p.neighbours.push_back(index);
+                // p.neighbours.push_back(index); // 使用在样本集向量中的索引追踪样本点
+                p.neighbours_pt.push_back(&another_p); // 或者使用样本点的指针，来追踪样本点
             }
         }
         else
@@ -58,6 +59,10 @@ vector<int> DBSCAN::run()
     {
         this->find_neighbours(p);
     }
+    // 两种追踪邻居样本点的方法效果是一致的：
+    // this->input_data[this->input_data.at(10).neighbours.at(0)].show_vector();
+    Sample_point *p = this->input_data.at(10).neighbours_pt.at(0);
+    (*p).show_vector();
     return vector<int>{1};
 }
 
