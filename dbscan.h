@@ -15,6 +15,8 @@ public:
     ~DBSCAN();
     inline double compute_distance(Sample_point&, Sample_point&);
     void find_neighbours(Sample_point&);
+    void spread_cluster(Sample_point&, int);
+    void result_to_csv(string);
     vector<int> run();
 };
 
