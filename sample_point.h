@@ -1,6 +1,6 @@
 #ifndef SAMPLE_POINT_H_
 #define SAMPLE_POINT_H_
-
+#include <list>
 #include <string>
 #include <vector>
 
@@ -11,10 +11,10 @@ class Sample_point
 
 public:
     vector<double> vec;
-    vector<Sample_point*> neighbours;
+    list<Sample_point*> neighbours;
     string type;
-    // bool visited;
-    is_visited visited;
+    bool visited;
+    // is_visited visited;
     int cluster;
     Sample_point(vector<double>);
     ~Sample_point();

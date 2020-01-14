@@ -10,8 +10,8 @@ using namespace std;
 Sample_point::Sample_point(vector<double> vector)
 {
     this->vec = vector;
-    // this->visited = false;
-    this->visited = not_visited;
+    this->visited = false;
+    // this->visited = not_visited;
     this->cluster = -1; // 先默认所有点都是噪声点
 }
 

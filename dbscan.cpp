@@ -34,7 +34,8 @@ inline double DBSCAN::compute_distance(Sample_point &p1, Sample_point &p2)
 void DBSCAN::find_neighbours(Sample_point &p)
 {
     // 防止一个点被重复计算邻居
-    if (p.visited == visited)
+    // if (p.visited == visited)
+    if (p.visited)
         throw invalid_argument("Point has already been visited!");
     // 使用引用查看是否另一个点就是自己
     for (Sample_point &another_p : this->input_data)
@@ -48,22 +49,24 @@ void DBSCAN::find_neighbours(Sample_point &p)
             }
         }
     }
-    p.visited = visited;
+    p.visited = true;
 }
 
 void DBSCAN::spread_cluster(Sample_point &spreader, int cluster)
 {
-    // 对指针的引用
+    // 对指针的引用, 不创建新的指针变量
     for (Sample_point *&neighbour : spreader.neighbours)
     {
-        if ((*neighbour).visited == not_visited) {
+        // if ((*neighbour).visited == not_visited) {
+        if (!(*neighbour).visited) {
             // cout << ((*neighbour).visited) << endl;
             // 将该点的邻居，添加至spreader的邻居里
             this->find_neighbours(*neighbour);
             for (Sample_point *&remote_neighbour: (*neighbour).neighbours) {
-                spreader.neighbours.push_back(remote_neighbour);
+                spreader.neighbours.push_back(remote_neighbour);  // 使用vector的话，可能造成连续的存储空间转移，当前的迭代变量失效
             }
         }
+        // if (neighbour->cluster == -1)
         if ((*neighbour).cluster == -1)
             (*neighbour).cluster = cluster;
     }
@@ -81,7 +84,8 @@ vector<int> DBSCAN::run()
     int current_cluster = 0;
     for (Sample_point &point : this->input_data)
     {
-        if (point.visited == not_visited)
+        // if (point.visited == not_visited)
+        if (!point.visited)
         {
             // 更新该点的所有邻居
             this->find_neighbours(point);
