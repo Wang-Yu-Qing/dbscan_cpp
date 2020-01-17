@@ -9,6 +9,7 @@ using namespace std;
 
 csv_read_result read_csv(string file_path)
 {
+    cout << "Read csv file from " << file_path << endl;
     ifstream file_stream(file_path);
     string line;
     csv_read_result values;
