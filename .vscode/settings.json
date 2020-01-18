@@ -1,7 +1,0 @@
-{
-    "python.linting.pycodestyleEnabled": true,
-    "python.linting.enabled": true,
-    "files.associations": {
-        "iostream": "cpp"
-    }
-}

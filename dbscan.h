@@ -7,11 +7,11 @@
 class DBSCAN
 {
 public:
-    vector<Sample_point> input_data;
+    list<Sample_point> input_data;
     int number_of_clusters;
     double radius;
     int minimum_points;
-    DBSCAN(vector<Sample_point> input_data, double radius, int minimum_points);
+    DBSCAN(list<Sample_point> &input_data, double radius, int minimum_points);
     ~DBSCAN();
     inline double compute_distance(Sample_point&, Sample_point&);
     void find_neighbours(Sample_point&);
