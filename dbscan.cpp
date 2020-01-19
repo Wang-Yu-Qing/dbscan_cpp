@@ -49,28 +49,28 @@ void DBSCAN::find_neighbours(Sample_point &p)
         }
     }
     p.visited = true;
-    cout << "number of neighbours: " << p.neighbours.size() << endl;
 }
 
 
 void DBSCAN::spread_cluster(Sample_point &spreader, int cluster)
 {
-    cout << "start spreading" << endl;
     for (Sample_point *neighbour : spreader.neighbours)
     {
-        if (!(*neighbour).visited)
+        if (!neighbour->visited)
         {
-            // 将该点的邻居，添加至spreader的邻居里
             this->find_neighbours(*neighbour);
-            for (Sample_point *remote_neighbour : neighbour->neighbours)
-            {
-                spreader.neighbours.push_back(remote_neighbour); // 使用vector的话，可能造成连续的存储空间转移，当前的迭代变量失效
+            // 若该点的邻居数量符合要求，则将该点的邻居，添加至spreader的邻居里
+            if (neighbour->neighbours.size() >= this->minimum_points) {
+                for (Sample_point *remote_neighbour : neighbour->neighbours)
+                {
+                    spreader.neighbours.push_back(remote_neighbour); // 使用vector的话，可能造成连续的存储空间转移，当前的迭代变量失效
+                }
             }
         }
+        // 若该点被访问过，且是噪声，则分配新的类别
         if (neighbour->cluster == -1)
             neighbour->cluster = cluster;
     }
-    cout << "spread done" << endl;
 }
 
 vector<int> DBSCAN::run()
@@ -113,7 +113,6 @@ int main()
         {
             // 使用经纬度作为特征值
             vector<double> vec = {stod(row_values[3]), stod(row_values[4])};
-            cout << "\n";
             Sample_point sample(vec);
             samples.push_back(sample); // 在循环体内部创建的变量，出了循环体后会被销毁，若存指针或引用，会因原变量被销毁而造成内存错误，因此存拷贝。
         }
