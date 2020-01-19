@@ -7,6 +7,7 @@
 #include <string>
 #include <stdexcept>
 #include <cstdlib>
+#include <iomanip>
 
 using namespace std;
 
@@ -42,21 +43,13 @@ void DBSCAN::find_neighbours(Sample_point &p)
         if (&another_p != &p)
         {
             double distance = this->compute_distance(p, another_p);
-            if (distance == 0) {
-                another_p.show_vector();
-                p.show_vector();
-            }
             if (distance <= this->radius)
-            {
-                // cout << distance << endl;
                 // 使用样本点的指针，来追踪样本点
-                // cout << &another_p << endl;
                 p.neighbours.push_back(&another_p);
-            }
         }
     }
     p.visited = true;
-    // cout << "number of neighbours: " << p.neighbours.size();
+    cout << "number of neighbours: " << p.neighbours.size() << endl;
 }
 
 
@@ -93,7 +86,6 @@ vector<int> DBSCAN::run()
             // 若该点不是噪声点，则传播新的类别
             if (point.neighbours.size() >= this->minimum_points)
             {
-                cout << "found core point for new cluster" << endl;
                 current_cluster += 1;
                 point.cluster = current_cluster;
                 this->spread_cluster(point, current_cluster);
@@ -121,6 +113,7 @@ int main()
         {
             // 使用经纬度作为特征值
             vector<double> vec = {stod(row_values[3]), stod(row_values[4])};
+            cout << "\n";
             Sample_point sample(vec);
             samples.push_back(sample); // 在循环体内部创建的变量，出了循环体后会被销毁，若存指针或引用，会因原变量被销毁而造成内存错误，因此存拷贝。
         }

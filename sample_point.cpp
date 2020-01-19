@@ -3,6 +3,7 @@
 #include <string>
 #include "common.h"
 #include "sample_point.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ Sample_point::~Sample_point(){}
 void Sample_point::show_vector() {
     cout << "{";
     for (double value:this->vec){
-        cout << value << ",";
+        cout << setprecision(17) << value << ",";
     }
     cout << "}" << endl;
 }
